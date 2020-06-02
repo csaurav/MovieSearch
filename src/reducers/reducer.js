@@ -1,19 +1,19 @@
 import {actionTypes} from '../actions/types';
 
 const initialState = {
+  isLoading: false,
   movieList: {},
 };
 
 const appReducer = (state = initialState, action = {}) => {
-  console.log(
-    `initialState: ${JSON.stringify(initialState)}---action: ${JSON.stringify(
-      action,
-    )} --actionTypes: ${JSON.stringify(actionTypes)}`,
-  );
   switch (action.type) {
     case actionTypes.DUMMY_STATE:
-      return {...state, text: action.payload.data};
-
+      return {...state};
+    case actionTypes.LOAD_HOME_SCREEN_REQUEST:
+      return {...state, isLoading: true};
+    case actionTypes.LOAD_HOME_SCREEN_SUCCESS:
+      console.log(`im in actionTypes.LOAD_HOME_SCREEN_SUCCESS`);
+      return {...state, movieList: action.payload, isLoading: false};
     default:
       return state;
   }

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, Text, StyleSheet} from 'react-native';
+// import {connect} from 'react-redux';
+import {View, StyleSheet} from 'react-native';
 
+import {HomeListItem} from '../components/';
 class HomeScreen extends Component {
   render() {
     {
@@ -9,7 +10,7 @@ class HomeScreen extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle}>Im HomeScreen</Text>
+        <HomeListItem />
       </View>
     );
   }
@@ -18,12 +19,13 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   textStyle: {
     fontSize: 14,
   },
 });
 
-export default connect(null, null)(HomeScreen);
+export default HomeScreen;
+// export default connect(null, null)(HomeScreen);
