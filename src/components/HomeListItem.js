@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
-import {ListItem} from 'react-native-elements';
+import {View, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
+import {ListItem, Image, Button} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {movieActions} from '../actions/';
-import {TouchableOpacity, FlatList} from 'react-native-gesture-handler';
+import MovieInfo from './MovieInfo';
 
+const width = Dimensions.get('screen').width;
 class HomeListItem extends Component {
   constructor(props) {
     super(props);
@@ -19,14 +14,6 @@ class HomeListItem extends Component {
   componentDidMount() {
     this.props.fetchInitialMovieList();
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(`im in componentDidUpdate`);
-  //   if (prevProps.isLoading && this.props.isLoading) {
-  //     this.setState({items: this.props.movieList});
-  //   }
-  // }
-
   keyExtractor = (item, index) => {
     if (item != undefined) {
       index.toString();
@@ -36,21 +23,48 @@ class HomeListItem extends Component {
   renderItem = (item) => {
     return <ListItem title={item.item['Source']} />;
   };
+
   render() {
     const {movieList, isLoading} = this.props;
-    console.log(`state value: ${JSON.stringify(movieList)}`);
+
     if (isLoading) {
       return <ActivityIndicator />;
     }
     return (
-      <View style={styles.movieTitleContainer}>
-        <Text></Text>
-        <Text style={styles.movieTitleText}>{movieList['Title']}</Text>
-        {/* <FlatList
-          keyExtractor={this.keyExtractor}
-          data={movieList.Ratings}
-          renderItem={this.renderItem}
-        /> */}
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <MovieInfo
+            style={styles}
+            param1={movieList.Title}
+            param2={movieList.Year}
+          />
+        </View>
+        <View style={styles.subContainer}>
+          <MovieInfo
+            style={styles}
+            param1={movieList.Rated}
+            param2={movieList.Released}
+          />
+        </View>
+        <View>
+          <Image
+            source={{uri: movieList.Poster}}
+            style={{width: width, height: 500}}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+        </View>
+        <View style={(styles.subContainer, {alignItems: 'center'})}>
+          <Button
+            containerStyle={styles.buttonContainerStyle}
+            title="Details"
+            type="outline"
+            onPress={() =>
+              this.props.navigation.navigate('Detail', {
+                movieListParams: movieList,
+              })
+            }
+          />
+        </View>
       </View>
     );
   }
@@ -62,13 +76,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // fetchInitialMovieList: () => {
-  //   console.log('hhh');
-  //   dispatch({
-  //     type: actionTypes.LOAD_HOME_SCREEN_REQUEST,
-  //     payload: null,
-  //   });
-  // },
   fetchInitialMovieList: () => {
     dispatch(movieActions.requestInitialMovieList());
   },
@@ -79,14 +86,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  movieTitleContainer: {
-    padding: 10,
+  subContainer: {
+    flexDirection: 'row',
   },
 
   movieTitleText: {
-    fontSize: 25,
+    padding: 5,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'grey',
+  },
+  yearTitleText: {
+    top: 5,
+    padding: 5,
+    fontSize: 12,
+    fontWeight: 'normal',
+    color: 'grey',
+  },
+  genericText: {
+    // top: 5,
+    padding: 5,
+    fontSize: 12,
+    fontWeight: 'normal',
+    color: 'grey',
+  },
+
+  buttonContainerStyle: {
+    paddingTop: 10,
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HomeListItem);

@@ -1,7 +1,7 @@
 const fetchInitialMovieList = (dispatch) => {
   return new Promise((resolve, reject) => {
     const apiKey = 'afa012a7';
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&t=a`;
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&t=hum`;
 
     const reqOptions = {
       method: 'GET',

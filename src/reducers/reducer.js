@@ -7,13 +7,15 @@ const initialState = {
 
 const appReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case actionTypes.DUMMY_STATE:
-      return {...state};
     case actionTypes.LOAD_HOME_SCREEN_REQUEST:
       return {...state, isLoading: true};
     case actionTypes.LOAD_HOME_SCREEN_SUCCESS:
       console.log(`im in actionTypes.LOAD_HOME_SCREEN_SUCCESS`);
-      return {...state, movieList: action.payload, isLoading: false};
+      return {
+        ...state,
+        movieList: action.payload,
+        isLoading: false,
+      };
     default:
       return state;
   }
