@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {movieActions} from '../actions/';
 import MovieInfo from './MovieInfo';
 
-const width = Dimensions.get('screen').width;
+const width = Dimensions.get('window').width;
 class HomeListItem extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +49,14 @@ class HomeListItem extends Component {
         <View>
           <Image
             source={{uri: movieList.Poster}}
-            style={{width: width, height: 500}}
+            style={{width: width, height: 300}}
             PlaceholderContent={<ActivityIndicator />}
           />
         </View>
-        <View style={(styles.subContainer, {alignItems: 'center'})}>
+        <View
+          style={
+            (styles.subContainer, {alignItems: 'center', paddingBottom: 20})
+          }>
           <Button
             containerStyle={styles.buttonContainerStyle}
             title="Details"
