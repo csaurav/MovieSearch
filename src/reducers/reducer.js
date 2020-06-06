@@ -1,8 +1,10 @@
 import {actionTypes} from '../actions/types';
+import {act} from 'react-test-renderer';
 
 const initialState = {
   isLoading: false,
   movieList: {},
+  error: false,
 };
 
 const appReducer = (state = initialState, action = {}) => {
@@ -16,6 +18,12 @@ const appReducer = (state = initialState, action = {}) => {
         movieList: action.payload,
         isLoading: false,
       };
+    case actionTypes.SEARCH_MOVIE_REQUEST:
+      return {...state, isLoading: true};
+    case actionTypes.SEARCH_MOVIE_REQUEST_SUCCESS:
+      return {...state, isLoading: false, movieList: action.payload};
+    case actionTypes.SEARCH_MOVIE_REQUEST_ERROR:
+      return {...state, isLoading: false, error: true};
     default:
       return state;
   }

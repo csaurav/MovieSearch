@@ -1,7 +1,7 @@
-const fetchInitialMovieList = (dispatch) => {
+import Config from '../config';
+const searchMovie = (searchString) => {
   return new Promise((resolve, reject) => {
-    const apiKey = 'afa012a7';
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&t=hum`;
+    const url = `${Config.API_HOST}${Config.API_KEY}&t=${searchString}`;
 
     const reqOptions = {
       method: 'GET',
@@ -10,19 +10,40 @@ const fetchInitialMovieList = (dispatch) => {
     fetch(url, reqOptions)
       .then((response) => response.json())
       .then((jsonResponse) => {
-        console.log(`JSON response: ${jsonResponse}`);
-        // dispatch(movieActions.loadInitialMovieList(jsonResponse));
+        console.log(`search json response: ${JSON.stringify(jsonResponse)}`);
         resolve(jsonResponse);
       })
       .catch((error) => {
-        // console.log(`error: ${JSON.stringify(error)}`);
+        console.log(`search error: ${JSON.stringify(error)}`);
         reject(error);
       });
   });
 };
 
+// const fetchInitialMovieList = () => {
+//   return new Promise((resolve, reject) => {
+//     const url = `${Config.API_HOST}${Config.API_KEY}&t=${searchString}`;
+
+//     const reqOptions = {
+//       method: 'GET',
+//     };
+
+//     fetch(url, reqOptions)
+//       .then((response) => response.json())
+//       .then((jsonResponse) => {
+//         console.log(`JSON response: ${jsonResponse}`);
+
+//         resolve(jsonResponse);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// };
+
 const NWmovie = {
-  fetchInitialMovieList,
+  // fetchInitialMovieList,
+  searchMovie,
 };
 
 export default NWmovie;
