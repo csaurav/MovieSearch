@@ -4,11 +4,11 @@ Signunp into https://www.omdbapi.com/ and generate the token.
 
 In .env file fill the API_LINK and API_KEY generated from the above step
 
-npm install
+yarn install
 
 Start Metro Bundler
 
-npm start
+yarn start
 
 Running in Device or Simulator
 
