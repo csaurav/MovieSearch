@@ -1,1 +1,17 @@
-An React Native App for listing and searching movie applications.
+REACT NATIVE APP FOR MovieSearch Application
+
+Signunp into https://www.omdbapi.com/ and generate the token.
+
+In .env file fill the API_LINK and API_KEY generated from the above step
+
+npm install
+
+Start Metro Bundler
+
+npm start
+
+Running in Device or Simulator
+
+npx react-native run-ios
+
+The app connects to OMDB API for searching movie information.
